@@ -1,0 +1,12 @@
+{
+    "name": "product-viewer",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+
+    },
+    "dependencies": {
+        "babylonjs": "^4.2.0",
+        "typescript": "^3.9.9"
+    }
+}

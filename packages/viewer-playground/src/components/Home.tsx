@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 //import { useDispatch } from "react-redux";
 //import { delayedShowLoadingOverlay, showLoadingOverlay } from "../store/loadingOverlay/loadingOverlayActions";
-import "@braustin20/product-viewer/dist/product-viewer";
+import "@braustin20/product-viewer";
 
 function Home(): ReactElement {
 	//const dispatch = useDispatch();

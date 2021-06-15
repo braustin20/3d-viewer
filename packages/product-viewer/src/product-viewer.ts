@@ -10,10 +10,10 @@ customElements.define("product-viewer", ProductViewerElement);
 export { ARMixin } from "./features/ar";
 
 declare global {
-    export interface HTMLElementTagNameMap {
+    interface HTMLElementTagNameMap {
         'product-viewer': ProductViewerElement;
     }
-    export namespace JSX {
+    namespace JSX {
         interface IntrinsicElements {
             'product-viewer': any;
         }

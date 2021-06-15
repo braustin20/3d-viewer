@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2017",
+    "module": "es2015",
     "moduleResolution": "Node",
     "noResolve": false,
     "noImplicitAny": false,
@@ -10,8 +10,8 @@
     "preserveConstEnums":true,
     "declaration": true,
     "lib": [
-        "dom",
-        "es6"
+        "es2017",
+        "dom"
     ],
     "rootDir": "src",
     "outDir": "dist"

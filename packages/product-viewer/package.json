@@ -4,7 +4,7 @@
     "main": "dist/product-viewer.js",
     "module": "dist/product-viewer.js",
     "private": true,
-    "types": "dist/index.d.ts",
+    "types": "dist/product-viewer.d.ts",
     "scripts": {
         "build": "webpack",
         "start": "webpack-dev-server --port 8080"

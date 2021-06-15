@@ -1,6 +1,6 @@
 # 3d-viewer
 
-This is a mono repo containing the following packages
+This is a monorepo containing packages 
 
 ## product-viewer
 A 3D viewer custom web component powered by BabylonJS

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "noResolve": false,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "inlineSources": true,
+    "preserveConstEnums":true,
+    "declaration": true,
+    "lib": [
+        "dom",
+        "es6"
+    ],
+    "rootDir": "src",
+    "outDir": "dist"
+  }
+}

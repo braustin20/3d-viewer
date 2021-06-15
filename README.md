@@ -2,7 +2,7 @@
 
 This is a mono repo containing the following packages
 
-## <product-viewer>
+## product-viewer
 A 3D viewer custom web component powered by BabylonJS
 
 ## viewer-playground

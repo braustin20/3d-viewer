@@ -5,15 +5,18 @@
     "moduleResolution": "Node",
     "noResolve": false,
     "noImplicitAny": false,
-    "sourceMap": true,
-    "inlineSources": true,
+    "sourceMap": false,
     "preserveConstEnums":true,
     "declaration": true,
+    "isolatedModules": true,
     "lib": [
         "es2017",
         "dom"
     ],
     "rootDir": "src",
     "outDir": "dist"
-  }
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useTranspileModule": true
+  },
 }

@@ -5,6 +5,10 @@
     "module": "dist/product-viewer.js",
     "private": true,
     "types": "dist/product-viewer.d.ts",
+    "files": [
+        "src",
+        "dist/product-viewer.js"
+    ],
     "scripts": {
         "build": "webpack",
         "start": "webpack-dev-server --port 8080"
@@ -24,5 +28,8 @@
         "webpack": "^5.38.1",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }

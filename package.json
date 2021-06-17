@@ -3,14 +3,14 @@
   "private": true,
   "description": "Repository containing <product-viewer> packages",
   "scripts": {
-    "bootstrap": "./node_modules/.bin/lerna bootstrap --ci",
+    "bootstrap": "./node_modules/.bin/lerna bootstrap",
     "clean": "./node_modules/.bin/lerna run clean --stream",
     "build": "./node_modules/.bin/lerna run build --stream",
-    "start": "npm run build && cd packages/viewer-playground && npm run start",
-    "serve": "./node_modules/.bin/http-server -a 127.0.0.1 -o /packages/viewer-playground -c-1",
-    "update:package-lock": "rm -f ./package-lock.json && npm i && ./node_modules/.bin/lerna run update:package-lock --stream"
+    "start": "npm run build && cd packages/viewer-playground && npm run start"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@babel/core": "^7.7.7",
+    "lerna": "^4.0.0",
+    "rimraf": "^3.0.2"
   }
 }

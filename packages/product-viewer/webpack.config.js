@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const appDirectory = fs.realpathSync(process.cwd());
 
@@ -11,14 +10,13 @@ module.exports = {
         path: path.resolve(appDirectory, "dist")
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: "ts-loader",
-                exclude: /node_modules/,
+                use: [{loader: 'ts-loader', options: {onlyCompileBundledFiles: true}}],
             },
             {
                 test: /\.js$/,

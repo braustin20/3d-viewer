@@ -8,6 +8,7 @@ const templateString = `
             width: 100%;
             height: 100%;
             touch-action: none;
+            outline: none;
         }
         .viewerWrapper {
             width: 100%;
@@ -15,28 +16,29 @@ const templateString = `
         }
     </style>
     <div class="viewerWrapper">
-        <canvas class="renderCanvas"/>
+        <canvas class="renderCanvas" touch-action="none" />
     </div>
 `;
-const template = document.createElement('template');
+const template = document.createElement("template");
 template.innerHTML = templateString;
 
 export default class ProductViewerElementBase extends HTMLElement {
     viewerWrapper: HTMLDivElement;
     renderCanvas: HTMLCanvasElement;
     inspector: HTMLDivElement;
+    engine: Engine;
 
     constructor () {
         super();
-        const shadowRoot = this.attachShadow({mode: 'open'});
+        const shadowRoot = this.attachShadow({mode: "open"});
+        this.shadowRoot.isConnected
         shadowRoot.appendChild(template.content.cloneNode(true));
-        this.viewerWrapper = shadowRoot.querySelector('.viewerWrapper');
-        this.renderCanvas = shadowRoot.querySelector('.renderCanvas');
-        this.inspector = shadowRoot.querySelector('#inspector');
+        this.viewerWrapper = shadowRoot.querySelector(".viewerWrapper");
+        this.renderCanvas = shadowRoot.querySelector(".renderCanvas");
 
         // initialize babylon scene and engine
-        var engine = new Engine(this.renderCanvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
-        var scene = new Scene(engine);
+        this.engine = new Engine(this.renderCanvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
+        var scene = new Scene(this.engine);
 
         var camera: ArcRotateCamera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), scene);
         camera.attachControl(this.renderCanvas, true);
@@ -54,14 +56,25 @@ export default class ProductViewerElementBase extends HTMLElement {
                 }
             }
         });
-
-        this.renderCanvas.addEventListener("resize", (ev) => {
-            engine.resize();
+        
+        window.addEventListener("resize", (ev) => {
+            this.engine.resize();
         });
-
+        
         // run the main render loop
-        engine.runRenderLoop(() => {
+        this.engine.runRenderLoop(() => {
             scene.render();
         });
+    }
+
+    // Called when the element has been added to the page
+    connectedCallback() {
+        // Make sure the engine canvas is properly resized 
+        this.engine.resize();
+    }
+
+    // Called when an attribute is changed
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`Attribute ${name} changed from ${oldValue} to ${newValue}`);
     }
 };

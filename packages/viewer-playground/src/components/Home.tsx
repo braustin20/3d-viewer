@@ -16,9 +16,7 @@ function Home(): ReactElement {
 
 	return (
 		<div className="App">
-			<div style={{ width: "100%" }}>
-				<product-viewer />
-			</div>
+			<product-viewer />
 		</div>
 	);
 }

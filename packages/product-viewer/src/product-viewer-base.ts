@@ -1,9 +1,25 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
-import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, Mesh, MeshBuilder } from "@babylonjs/core";
+import "@babylonjs/loaders";
+import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, Mesh, MeshBuilder, SceneLoader } from "@babylonjs/core";
+import { LitElement, html, css } from "lit";
+import { property } from "lit/decorators.js";
 
-const templateString = `
-    <style>
+export default class ProductViewerElementBase extends LitElement {
+    viewerWrapper: HTMLDivElement;
+    renderCanvas: HTMLCanvasElement;
+    inspector: HTMLDivElement;
+    engine: Engine;
+    scene: Scene;
+    camera: ArcRotateCamera;
+    @property({type: String}) modelUrl: string;
+
+    constructor() {
+        super();
+    }
+
+    // Lit element styles that get applied to the template in the render() function
+    static styles = css`
         .renderCanvas {
             width: 100%;
             height: 100%;
@@ -14,45 +30,32 @@ const templateString = `
             width: 100%;
             height: 100%;
         }
-    </style>
-    <div class="viewerWrapper">
-        <canvas class="renderCanvas" touch-action="none" />
-    </div>
-`;
-const template = document.createElement("template");
-template.innerHTML = templateString;
+    `;
 
-export default class ProductViewerElementBase extends HTMLElement {
-    viewerWrapper: HTMLDivElement;
-    renderCanvas: HTMLCanvasElement;
-    inspector: HTMLDivElement;
-    engine: Engine;
-
-    constructor () {
-        super();
-        const shadowRoot = this.attachShadow({mode: "open"});
-        this.shadowRoot.isConnected
-        shadowRoot.appendChild(template.content.cloneNode(true));
-        this.viewerWrapper = shadowRoot.querySelector(".viewerWrapper");
-        this.renderCanvas = shadowRoot.querySelector(".renderCanvas");
+    initBabylon() {
+        this.viewerWrapper = this.shadowRoot.querySelector(".viewerWrapper");
+        this.renderCanvas = this.shadowRoot.querySelector(".renderCanvas");
 
         // initialize babylon scene and engine
         this.engine = new Engine(this.renderCanvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
-        var scene = new Scene(this.engine);
+        this.scene = new Scene(this.engine);
 
-        var camera: ArcRotateCamera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), scene);
-        camera.attachControl(this.renderCanvas, true);
-        var light1: HemisphericLight = new HemisphericLight("light1", new Vector3(1, 1, 0), scene);
-        var sphere: Mesh = MeshBuilder.CreateSphere("sphere", { diameter: 1 }, scene);
+        this.camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), this.scene);
+        this.camera.attachControl(this.renderCanvas, true);
+        var light1: HemisphericLight = new HemisphericLight("light1", new Vector3(1, 1, 0), this.scene);
+        //var sphere: Mesh = MeshBuilder.CreateSphere("sphere", { diameter: 1 }, this.scene);
+
+        if (this.modelUrl) this.loadModel();
+        else MeshBuilder.CreateSphere("sphere", { diameter: 1 }, this.scene);
 
         // hide/show the Inspector
         this.renderCanvas.addEventListener("keydown", (ev) => {
             // Shift+Ctrl+Alt+I
             if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyI") {
-                if (scene.debugLayer.isVisible()) {
-                    scene.debugLayer.hide();
+                if (this.scene.debugLayer.isVisible()) {
+                    this.scene.debugLayer.hide();
                 } else {
-                    scene.debugLayer.show({ embedMode: true });
+                    this.scene.debugLayer.show({ embedMode: true });
                 }
             }
         });
@@ -63,18 +66,46 @@ export default class ProductViewerElementBase extends HTMLElement {
         
         // run the main render loop
         this.engine.runRenderLoop(() => {
-            scene.render();
+            this.scene.render();
         });
     }
 
-    // Called when the element has been added to the page
-    connectedCallback() {
-        // Make sure the engine canvas is properly resized 
-        this.engine.resize();
+    loadModel(): void {
+        console.log(this.modelUrl);
+		SceneLoader.ImportMesh(
+			"",
+			this.modelUrl,
+			"",
+			this.scene,
+			(meshes) => {
+                // fired when mesh is loaded
+                this.camera.setTarget(meshes[0])
+			},
+			null,
+			null,
+			".glb",
+		);
+	}
+
+    // Fired on each property update. changedProperties includes the previous values
+    updated(changedProperties: Map<string, any>) {
+        super.updated?.(changedProperties);
+    
+        //if (changedProperties.has('viewerProps') && this.viewerProps != null) {
+        this.updateRenderer();
+        //}
     }
 
-    // Called when an attribute is changed
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`Attribute ${name} changed from ${oldValue} to ${newValue}`);
+    render() {
+        return html`
+            <div class="viewerWrapper">
+                <canvas class="renderCanvas" touch-action="none" />
+            </div>
+        `;
+    }
+
+    updateRenderer() {
+        if (this.engine) this.engine.resize();
+        else this.initBabylon();
     }
 };

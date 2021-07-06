@@ -1,4 +1,1 @@
-export type Constructor<T = object, U = object> = {
-    new(...args: any[]): T,
-    prototype: T
-} & U;
+export type Constructor<T = {}> = new (...args: any[]) => T;

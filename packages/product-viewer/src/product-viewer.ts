@@ -1,13 +1,14 @@
 import ProductViewerElementBase from "./product-viewer-base";
-import { ARMixin } from "./features/ar";
+import { ARMixin } from "./features/AR";
+import { CameraMixin } from "./features/Camera";
+import { LightingMixin } from "./features/Lighting";
+import { LoaderMixin } from "./features/Loader";
 
-export const ProductViewerElement = ARMixin(ProductViewerElementBase);
+export const ProductViewerElement = LoaderMixin(LightingMixin(CameraMixin(ARMixin(ProductViewerElementBase))));
 
 export type ProductViewerElement = InstanceType<typeof ProductViewerElement>;
 
 customElements.define("product-viewer", ProductViewerElement);
-
-export { ARMixin } from "./features/ar";
 
 declare global {
     interface HTMLElementTagNameMap {

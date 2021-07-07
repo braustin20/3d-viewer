@@ -1,7 +1,7 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders";
-import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, Mesh, MeshBuilder, SceneLoader } from "@babylonjs/core";
+import { Engine, Scene, Camera } from "@babylonjs/core";
 import { LitElement, html, css } from "lit";
 import { property } from "lit/decorators.js";
 
@@ -11,8 +11,7 @@ export default class ProductViewerElementBase extends LitElement {
     inspector: HTMLDivElement;
     engine: Engine;
     scene: Scene;
-    camera: ArcRotateCamera;
-    @property({type: String}) modelUrl: string;
+    camera: Camera;
 
     constructor() {
         super();
@@ -40,14 +39,6 @@ export default class ProductViewerElementBase extends LitElement {
         this.engine = new Engine(this.renderCanvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
         this.scene = new Scene(this.engine);
 
-        this.camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), this.scene);
-        this.camera.attachControl(this.renderCanvas, true);
-        var light1: HemisphericLight = new HemisphericLight("light1", new Vector3(1, 1, 0), this.scene);
-        //var sphere: Mesh = MeshBuilder.CreateSphere("sphere", { diameter: 1 }, this.scene);
-
-        if (this.modelUrl) this.loadModel();
-        else MeshBuilder.CreateSphere("sphere", { diameter: 1 }, this.scene);
-
         // hide/show the Inspector
         this.renderCanvas.addEventListener("keydown", (ev) => {
             // Shift+Ctrl+Alt+I
@@ -66,33 +57,20 @@ export default class ProductViewerElementBase extends LitElement {
         
         // run the main render loop
         this.engine.runRenderLoop(() => {
-            this.scene.render();
+            if (this.camera) this.scene.render();
         });
     }
 
-    loadModel(): void {
-        console.log(this.modelUrl);
-		SceneLoader.ImportMesh(
-			"",
-			this.modelUrl,
-			"",
-			this.scene,
-			(meshes) => {
-                // fired when mesh is loaded
-                this.camera.setTarget(meshes[0])
-			},
-			null,
-			null,
-			".glb",
-		);
-	}
+    modelLoaded(): void {
+
+    }
 
     // Fired on each property update. changedProperties includes the previous values
     updated(changedProperties: Map<string, any>) {
         super.updated?.(changedProperties);
     
         //if (changedProperties.has('viewerProps') && this.viewerProps != null) {
-        this.updateRenderer();
+            this.updateRenderer();
         //}
     }
 

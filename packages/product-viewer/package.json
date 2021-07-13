@@ -36,9 +36,7 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
-        "@braustin20/viewer-assets": "^0.1.2",
-        "fs": "0.0.1-security",
-        "path": "^0.12.7"
+        "@braustin20/viewer-assets": "^0.0.2"
     },
     "publishConfig": {
         "access": "public"

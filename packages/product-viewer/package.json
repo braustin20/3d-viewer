@@ -1,6 +1,6 @@
 {
     "name": "@braustin20/product-viewer",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "dist/product-viewer.js",
     "module": "dist/product-viewer.js",
     "types": "dist/product-viewer.d.ts",

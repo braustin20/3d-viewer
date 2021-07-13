@@ -1,6 +1,6 @@
 {
     "name": "@braustin20/product-viewer",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main": "dist/product-viewer.js",
     "module": "dist/product-viewer.js",
     "private": true,
@@ -37,7 +37,7 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
-        "@braustin20/viewer-assets": "^0.1.0",
+        "@braustin20/viewer-assets": "^0.1.1",
         "fs": "0.0.1-security",
         "path": "^0.12.7"
     },
@@ -46,7 +46,7 @@
     },
     "targets": {
         "main": {
-          "isLibrary": true
+            "isLibrary": true
         }
-      }
+    }
 }

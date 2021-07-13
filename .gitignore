@@ -4,6 +4,8 @@
 node_modules/
 .pnp/
 .pnp.js
+common-assets/
+common-assets
 
 # testing
 coverage/
@@ -11,7 +13,6 @@ coverage/
 # production
 build/
 dist/
-common-assets/
 
 # misc
 .DS_Store

@@ -5,7 +5,7 @@ import { Engine, Scene, Camera, AbstractMesh } from "@babylonjs/core";
 import { LitElement, html, css } from "lit";
 import { property } from "lit/decorators.js";
 
-const image = new URL("./viewer-assets/images/d4ynbdgelh971.jpg", import.meta.url);
+const image = new URL("./viewer-assets/images/d4ynbdgelh97.jpg", import.meta.url);
 
 export default class ProductViewerElementBase extends LitElement {
     viewerWrapper: HTMLDivElement;
@@ -22,7 +22,7 @@ export default class ProductViewerElementBase extends LitElement {
     // Lit element styles that get applied to the template in the render() function
     static styles = css`
         .renderCanvas {
-            width: 90%;
+            width: 100%;
             height: 100%;
             touch-action: none;
             outline: none;

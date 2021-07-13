@@ -3,7 +3,6 @@
     "version": "0.1.1",
     "main": "dist/product-viewer.js",
     "module": "dist/product-viewer.js",
-    "private": true,
     "types": "dist/product-viewer.d.ts",
     "files": [
         "src",

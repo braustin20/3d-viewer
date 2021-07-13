@@ -6,7 +6,8 @@
     "bootstrap": "./node_modules/.bin/lerna bootstrap",
     "clean": "./node_modules/.bin/lerna run clean --stream",
     "build": "./node_modules/.bin/lerna run build --stream",
-    "start": "npm run build && cd packages/viewer-playground && npm run start",
+    "publish": "./node_modules/.bin/lerna publish",
+    "start": "./node_modules/.bin/lerna bootstrap && npm run build && cd packages/viewer-playground && npm run start",
     "serve-viewer": "cd packages/product-viewer && npm run start"
   },
   "devDependencies": {

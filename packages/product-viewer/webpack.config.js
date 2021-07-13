@@ -8,7 +8,7 @@ module.exports = {
     entry: path.resolve(appDirectory, "src/product-viewer.ts"),
     output: {
         filename: "product-viewer.js",
-        path: path.resolve(appDirectory, "dist")
+        path: path.resolve(appDirectory, "dist"),
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -24,13 +24,20 @@ module.exports = {
                 enforce: "pre",
                 use: ["source-map-loader"],
             },
+            {
+                test: /\.(env|glb|png|jpg)/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[hash][ext][query]'
+                }
+            }
         ],
     },
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'public' }
+                { from: "public" }
             ],
         }),
     ],

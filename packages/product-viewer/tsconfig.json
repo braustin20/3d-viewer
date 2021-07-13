@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "es2015",
+    "target": "es6",
+    "module": "esnext",
     "moduleResolution": "Node",
     "noResolve": false,
     "noImplicitAny": false,
@@ -15,7 +15,8 @@
         "dom"
     ],
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots" : ["node_modules/@types", "src/types"]
   },
   "awesomeTypescriptLoaderOptions": {
     "useTranspileModule": true

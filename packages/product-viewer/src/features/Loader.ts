@@ -26,7 +26,7 @@ export const LoaderMixin = <T extends Constructor<ProductViewerElementBase>>(Bas
                 "",
                 this.scene,
                 (meshes) => {
-                    this.modelLoaded();
+                    this.modelLoaded(meshes);
                 },
                 null,
                 null,

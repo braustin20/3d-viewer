@@ -1,9 +1,11 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders";
-import { Engine, Scene, Camera } from "@babylonjs/core";
+import { Engine, Scene, Camera, AbstractMesh } from "@babylonjs/core";
 import { LitElement, html, css } from "lit";
 import { property } from "lit/decorators.js";
+
+const image = new URL("./viewer-assets/images/d4ynbdgelh971.jpg", import.meta.url);
 
 export default class ProductViewerElementBase extends LitElement {
     viewerWrapper: HTMLDivElement;
@@ -20,7 +22,7 @@ export default class ProductViewerElementBase extends LitElement {
     // Lit element styles that get applied to the template in the render() function
     static styles = css`
         .renderCanvas {
-            width: 100%;
+            width: 90%;
             height: 100%;
             touch-action: none;
             outline: none;
@@ -38,6 +40,10 @@ export default class ProductViewerElementBase extends LitElement {
         // initialize babylon scene and engine
         this.engine = new Engine(this.renderCanvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
         this.scene = new Scene(this.engine);
+
+        // Update the pixel density to look sharp on high DPI screens (mobile devices)
+        const scaleLevel = 1 / window.devicePixelRatio;
+		this.engine.setHardwareScalingLevel(scaleLevel);
 
         // hide/show the Inspector
         this.renderCanvas.addEventListener("keydown", (ev) => {
@@ -61,7 +67,7 @@ export default class ProductViewerElementBase extends LitElement {
         });
     }
 
-    modelLoaded(): void {
+    modelLoaded(meshes: AbstractMesh[]): void {
 
     }
 
@@ -73,12 +79,13 @@ export default class ProductViewerElementBase extends LitElement {
             this.updateRenderer();
         //}
     }
-
+    
     render() {
         return html`
             <div class="viewerWrapper">
                 <canvas class="renderCanvas" touch-action="none" />
             </div>
+            <img src=${image} />
         `;
     }
 

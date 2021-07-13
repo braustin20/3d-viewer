@@ -12,7 +12,7 @@
     ],
     "scripts": {
         "build": "webpack",
-        "prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./viewer-assets",
+        "prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./common-assets",
         "start": "webpack serve --port 8080"
     },
     "devDependencies": {

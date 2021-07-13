@@ -13,7 +13,7 @@
 		"lint": "npm run lint:eslint && npm run lint:prettier",
 		"lint:eslint": "eslint --ext .ts .",
 		"lint:prettier": "prettier --check .",
-		"prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./viewer-assets"
+		"prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./common-assets"
 	},
 	"dependencies": {
 		"@material-ui/core": "^4.11.4",

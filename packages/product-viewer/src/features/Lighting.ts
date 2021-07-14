@@ -1,18 +1,18 @@
 import ProductViewerElementBase from "../product-viewer-base";
 import { Constructor } from "../tools/Utils";
 import { property } from "lit/decorators.js";
-import { Vector3, HemisphericLight, CubeTexture, ImageProcessingConfiguration } from "@babylonjs/core";
-//import neutralEnv from "../../viewer-assets/environments/neutral.env";
+import { Vector3, HemisphericLight, CubeTexture, ImageProcessingConfiguration, Color3 } from "@babylonjs/core";
 
 export declare interface LightingInterface {
     lightIntensity: Number;
+    environment: string;
 }
 
 export const LightingMixin = <T extends Constructor<ProductViewerElementBase>>(BaseViewerElement: T): Constructor<LightingInterface> & T => {
     class LightingModelViewerElement extends BaseViewerElement {
-        hemisphericLight1: HemisphericLight;
-        hemisphericLight2: HemisphericLight;
-        @property({type: Number, attribute: 'light-intensity'}) lightIntensity = 0.6;
+        hemisphericLight: HemisphericLight;
+        @property({type: Number, attribute: 'light-intensity'}) lightIntensity = 2.0;
+        @property({type: String, attribute: 'environment'}) environment = "neutral";
 
         updated(changedProperties: Map<string, any>): void {
             super.updated?.(changedProperties);
@@ -22,14 +22,15 @@ export const LightingMixin = <T extends Constructor<ProductViewerElementBase>>(B
 
         updateLighting(): void {
             // Lights
-            this.hemisphericLight1 = new HemisphericLight("HemisphericLight1", new Vector3(0, 1, 0), this.scene);
-            this.hemisphericLight1.intensity = this.lightIntensity;
+            this.hemisphericLight = new HemisphericLight("HemisphericLight", new Vector3(0, 1, 0), this.scene);
+            this.hemisphericLight.intensity = this.lightIntensity;
 
-            this.hemisphericLight2 = new HemisphericLight("HemisphericLight2", new Vector3(0, -1, 0), this.scene);
-            this.hemisphericLight2.intensity = this.lightIntensity;
-            const neutralEnv = new URL("../../common-assets/environments/neutral.env", import.meta.url)
-            const hdrTexture = CubeTexture.CreateFromPrefilteredData(neutralEnv.href, this.scene);
-		    this.scene.environmentTexture = hdrTexture;
+            if (this.environment === "neutral") {
+                this.scene.createDefaultEnvironment({groundColor: new Color3(1, 1, 1), skyboxColor: new Color3(1, 1, 1) });
+            } else {
+                const hdrTexture = CubeTexture.CreateFromPrefilteredData(this.environment, this.scene);
+		        this.scene.environmentTexture = hdrTexture;
+            }
 
             // Enable tonemapping to prevent white blowout
             this.scene.imageProcessingConfiguration.toneMappingEnabled = true;

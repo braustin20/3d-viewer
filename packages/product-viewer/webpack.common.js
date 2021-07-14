@@ -1,14 +1,14 @@
 const path = require("path");
 const fs = require("fs");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const appDirectory = fs.realpathSync(process.cwd());
 
 module.exports = {
-    entry: path.resolve(appDirectory, "src/product-viewer.ts"),
+    entry: path.resolve(appDirectory, "lib/product-viewer.js"),
     output: {
         filename: "product-viewer.js",
         path: path.resolve(appDirectory, "dist"),
+        library: 'productViewer',
+        libraryTarget: 'umd'
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -17,7 +17,8 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: [{loader: 'ts-loader', options: {onlyCompileBundledFiles: true}}],
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.js$/,
@@ -25,22 +26,12 @@ module.exports = {
                 use: ["source-map-loader"],
             },
             {
-                test: /\.(env|glb|png|jpg)/,
+                test: /\.(glb|usdz|gltf)/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/[hash][ext][query]'
+                    filename: 'assets/[name][ext][query]'
                 }
             }
         ],
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: "public" }
-            ],
-        }),
-    ],
-    mode: "development",
-    devtool: "source-map"
+    }
 };

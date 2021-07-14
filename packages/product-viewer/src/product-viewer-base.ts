@@ -5,8 +5,6 @@ import { Engine, Scene, Camera, AbstractMesh } from "@babylonjs/core";
 import { LitElement, html, css } from "lit";
 import { property } from "lit/decorators.js";
 
-const image = new URL("../common-assets/images/d4ynbdgelh97.jpg", import.meta.url);
-
 export default class ProductViewerElementBase extends LitElement {
     viewerWrapper: HTMLDivElement;
     renderCanvas: HTMLCanvasElement;
@@ -85,7 +83,6 @@ export default class ProductViewerElementBase extends LitElement {
             <div class="viewerWrapper">
                 <canvas class="renderCanvas" touch-action="none" />
             </div>
-            <img src=${image} />
         `;
     }
 

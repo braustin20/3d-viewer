@@ -27,7 +27,7 @@ export const LightingMixin = <T extends Constructor<ProductViewerElementBase>>(B
 
             this.hemisphericLight2 = new HemisphericLight("HemisphericLight2", new Vector3(0, -1, 0), this.scene);
             this.hemisphericLight2.intensity = this.lightIntensity;
-            const neutralEnv = new URL("../../viewer-assets/environments/neutral.env", import.meta.url)
+            const neutralEnv = new URL("../../common-assets/environments/neutral.env", import.meta.url)
             const hdrTexture = CubeTexture.CreateFromPrefilteredData(neutralEnv.href, this.scene);
 		    this.scene.environmentTexture = hdrTexture;
 

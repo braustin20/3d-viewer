@@ -7,12 +7,17 @@
     "files": [
         "src",
         "dist/product-viewer.js",
-        "dist/assets"
+        "dist/product-viewer.js.map",
+        "dist/product-viewer.min",
+        "dist/product-viewer.min.js.map",
+        "dist/assets",
+        "lib"
     ],
     "scripts": {
-        "build": "webpack",
+        "build": "npm run build:tsc && webpack",
+        "build:tsc": "tsc",
         "prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./common-assets",
-        "start": "webpack serve --port 8080"
+        "start": "npm run build:tsc && webpack serve --port 8080"
     },
     "devDependencies": {
         "@babylonjs/core": "^4.2.0",
@@ -31,7 +36,7 @@
         "source-map-loader": "^3.0.0",
         "symlink-dir": "^5.0.1",
         "ts-loader": "^9.2.3",
-        "typescript": "^4.3.2",
+        "typescript": "4.0.2",
         "webpack": "^5.38.1",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2"

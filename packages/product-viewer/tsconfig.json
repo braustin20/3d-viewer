@@ -5,7 +5,7 @@
     "moduleResolution": "Node",
     "noResolve": false,
     "noImplicitAny": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "preserveConstEnums":true,
     "declaration": true,
     "isolatedModules": true,
@@ -14,10 +14,13 @@
         "es2017",
         "dom"
     ],
-    "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "./lib",
+    "incremental": true,
     "typeRoots" : ["node_modules/@types", "src/types"]
   },
+  "include": [
+    "./src/**/*.ts"
+  ],
   "awesomeTypescriptLoaderOptions": {
     "useTranspileModule": true
   },

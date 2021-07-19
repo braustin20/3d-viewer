@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 //THEME
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { ThemeProvider } from "styled-components";
-import LabsTheme from "./styles/theme/LabsTheme";
+import Theme from "./styles/theme/Theme";
 
 //CSS
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -20,8 +20,8 @@ ReactDOM.render(
 		<Provider store={reduxStore}>
 			<HashRouter>
 				<CssBaseline />
-				<MuiThemeProvider theme={LabsTheme}>
-					<ThemeProvider theme={LabsTheme}>
+				<MuiThemeProvider theme={Theme}>
+					<ThemeProvider theme={Theme}>
 						<App />
 					</ThemeProvider>
 				</MuiThemeProvider>

@@ -16,7 +16,7 @@ function Home(): ReactElement {
 
 	return (
 		<div className="App">
-			<product-viewer model-url="https://storage.googleapis.com/lils-prod-corgis-permalinks/1002274076-standard.glb" />
+			<product-viewer model-url="./common-assets/models/WaterBottle.glb" />
 		</div>
 	);
 }

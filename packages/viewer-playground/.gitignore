@@ -4,8 +4,7 @@
 node_modules/
 .pnp/
 .pnp.js
-common-assets/
-common-assets
+public/common-assets
 
 # testing
 coverage/

@@ -3,8 +3,10 @@ import { ARMixin } from "./features/AR";
 import { CameraMixin } from "./features/Camera";
 import { LightingMixin } from "./features/Lighting";
 import { LoaderMixin } from "./features/Loader";
+import { LayoutMixin } from "./features/Layout";
 
-export const ProductViewerElement = LoaderMixin(LightingMixin(CameraMixin(ARMixin(ProductViewerElementBase))));
+// Load feature mixins - the order is significant, outer mixing load later
+export const ProductViewerElement = LightingMixin(LoaderMixin(CameraMixin(LayoutMixin(ARMixin(ProductViewerElementBase)))));
 
 export type ProductViewerElement = InstanceType<typeof ProductViewerElement>;
 

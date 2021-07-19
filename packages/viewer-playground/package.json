@@ -13,10 +13,10 @@
 		"lint": "npm run lint:eslint && npm run lint:prettier",
 		"lint:eslint": "eslint --ext .ts .",
 		"lint:prettier": "prettier --check .",
-		"prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./common-assets"
+		"prepare": "symlink-dir ./node_modules/@braustin20/viewer-assets/assets ./public/common-assets"
 	},
 	"dependencies": {
-		"@braustin20/product-viewer": "^0.0.6",
+		"@braustin20/product-viewer": "0.0.6",
 		"@material-ui/core": "^4.11.4",
 		"@material-ui/icons": "^4.11.2",
 		"@testing-library/jest-dom": "^4.2.4",
@@ -68,7 +68,7 @@
 		"*.ts": "eslint --cache --fix"
 	},
 	"devDependencies": {
-		"@braustin20/viewer-assets": "^0.0.2",
+		"@braustin20/viewer-assets": "0.0.2",
 		"@typescript-eslint/eslint-plugin": "^4.26.1",
 		"@typescript-eslint/parser": "^4.26.1",
 		"eslint-config-prettier": "^6.13.0",

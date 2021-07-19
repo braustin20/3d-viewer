@@ -17,7 +17,7 @@ module.exports = merge(common, {
         new CopyWebpackPlugin({
             patterns: [
                 { from: "public" },
-                { from: "common-assets/models/1002274076-standard.glb", to: "assets" },
+                { from: "common-assets/models/WaterBottle.glb", to: "assets" },
             ],
         }),
     ]
